@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'faker'
 
 RSpec.describe Account, :type => :model do
   it "is valid with valid attributes" do
