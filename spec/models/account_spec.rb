@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Account, :type => :model do
+describe Account, type: :model do
   it "is valid with valid attributes" do
     account = Account.new(name: Faker::Company.name)
     expect(account).to be_valid
