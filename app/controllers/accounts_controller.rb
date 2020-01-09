@@ -1,7 +1,7 @@
 class AccountsController < ApplicationController
     def index
         limit = params[:size] || 10
-        offset = paparams[:page] ? (limit * page) : (limit * 0)
+        offset = params[:page] ? (limit * page) : (limit * 0)
         @accounts = Account.limit(limit).offset(offset)
         render json: @accounts, status: 200
     end
