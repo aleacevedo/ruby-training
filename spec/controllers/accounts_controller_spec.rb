@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 describe AccountsController, type: :controller do
-  let(:account_schema) do
+  describe "GET #index" do
+    let! (:accounts) {create_list(:account, 20)}
+    let (:account_schema) do
     {
       type: 'object',
       required: %w[id name],
