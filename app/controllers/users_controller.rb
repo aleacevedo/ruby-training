@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     end
 
     def update
-        Account.find(params[:id]).update(update_user_params)
+        User.find(params[:id]).update(update_user_params)
         render status: :ok
     end
 
