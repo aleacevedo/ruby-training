@@ -31,6 +31,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'faker'
   gem 'factory_girl_rails'
+  gem 'kaminari'
 end
 
 group :development do
