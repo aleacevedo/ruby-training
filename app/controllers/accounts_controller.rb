@@ -12,13 +12,22 @@ class AccountsController < ApplicationController
     end
 
     def create
-        @account = Account.create(params.require(:account).permit(:name))
+        @account = Account.create(create_account_params)
         render json: @account, status: :created
     end
 
     def update
-        Account.find(params[:id]).update(params[:account].permit(:name))
+        Account.find(params[:id]).update(update_account_params)
         render status: :ok
     end
 
+    private
+
+    def create_account_params
+        params.require(:account).permit(:name)
+    end
+
+    def update_account_params
+        params.require(:account).permit(:name)
+    end
 end
