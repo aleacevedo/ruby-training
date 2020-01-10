@@ -32,6 +32,7 @@ group :development, :test do
   gem 'faker'
   gem 'factory_girl_rails'
   gem 'kaminari'
+  gem 'json-schema'
 end
 
 group :development do
