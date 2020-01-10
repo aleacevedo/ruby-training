@@ -13,6 +13,10 @@ describe AccountsController, type: :controller do
   end
   describe "GET #index" do
     let! (:accounts) {create_list(:account, 20)}
+    let (:account_schema) do
+
+  describe "GET #index" do
+    let! (:accounts) {create_list(:account, 20)}
     before do
         get :index
     end
