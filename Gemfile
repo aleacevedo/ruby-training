@@ -33,6 +33,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'kaminari'
   gem 'json-schema'
+  gem 'devise'
 end
 
 group :development do
