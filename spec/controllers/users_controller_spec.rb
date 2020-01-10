@@ -2,7 +2,19 @@ require 'rails_helper'
 
 describe UsersController, type: :controller do
     describe "GET #index" do
-    let! (:users) {FactoryBot.create_list(:user, 20)}
+    let! (:users) {create_list(:user, 20)}
+    let (:user_schema) do
+      {
+        type: "object",
+        required: ["id", "email", "first_name", "last_name"],
+        properties: {
+          id: {"type" => "integer"},
+          email: {"type" => "string"},
+          first_name: {"type" => "string"},
+          last_name: {"type" => "string"}
+        }
+      }
+    end
     before do
         get :index
     end
@@ -10,14 +22,12 @@ describe UsersController, type: :controller do
         expect(response).to have_http_status(:success)
     end
     it "JSON body response contains expected account attributes" do
-      json_response = JSON.parse(response.body)
-      json_response.each do |account|
-        expect(account.keys).to include("id", "email", "first_name", "last_name")
-      end
+      users_responded = response.parsed_body
+      expect(JSON::Validator.validate(user_schema, users_responded, list: true)).to be true
     end
-    it "get ten accounts" do
-      json_response = JSON.parse(response.body)
-      expect(json_response.length).to be(10)
+    it "responds with 10 users" do
+      users_responded = response.parsed_body
+      expect(users_responded.length).to be(10)
     end  
   end 
 end
