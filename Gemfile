@@ -29,6 +29,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'active_model_serializers', '~> 0.10.0'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'devise'
   gem 'faker'
@@ -36,7 +37,6 @@ group :development, :test do
   gem 'kaminari'
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', '~> 0.79.0', require: false
-  gem 'active_model_serializers', '~> 0.10.0'
 end
 
 group :development do
