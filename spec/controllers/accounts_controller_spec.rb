@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe AccountsController, type: :controller do
   describe "GET #index" do
-    let! (:accounts) {FactoryGirl.create_list(:account, 20)}
-    let (:account_schema) do
+  let! (:accounts) {FactoryBot.create_list(:account, 20)}
+  let (:account_schema) do
     {
       type: "object",
       required: ["id", "name"],
@@ -29,7 +29,7 @@ describe AccountsController, type: :controller do
     end  
   end 
   describe "GET #show" do
-    let! (:accounts) {FactoryGirl.create_list(:account, 20)}
+    let! (:accounts) {FactoryBot.create_list(:account, 20)}
     before do
         get :show, params: {id: accounts[0].id}
     end
@@ -48,7 +48,7 @@ describe AccountsController, type: :controller do
     end
   end 
   describe "POST #create" do
-    let (:account) {FactoryGirl.attributes_for :account}
+    let (:account) {FactoryBot.attributes_for :account}
     before do
       post :create, params: {account: account}
     end
@@ -62,8 +62,8 @@ describe AccountsController, type: :controller do
     end 
   end
   describe "PUT #update" do
-    let (:account) {FactoryGirl.create :account}
-    let (:new_account) {FactoryGirl.attributes_for :account}
+    let (:account) {FactoryBot.create :account}
+    let (:new_account) {FactoryBot.attributes_for :account}
     before do
       put :update, params: {account: new_account, id: account.id}
     end

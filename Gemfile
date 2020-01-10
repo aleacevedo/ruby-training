@@ -49,4 +49,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Gemfile
 group :test do
   gem 'database_cleaner', '~> 1.7'
+  gem "factory_bot_rails"
 end
