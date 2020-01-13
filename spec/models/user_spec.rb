@@ -85,7 +85,7 @@ describe User, type: :model do
                        account_id: account.id)
     saved_user = User.find(user.id)
     bcrypt = ::BCrypt::Password.new(saved_user.encrypted_password)
-    encrypted_password = ::BCrypt::Engine.hash_secret(password, bcrypt.salt)
+    encrypted_password = ::BCrypt::Engine.hash_secret(user.password, bcrypt.salt)
     expect(Devise.secure_compare(encrypted_password, user.encrypted_password)).to be true
   end
 end
