@@ -8,7 +8,6 @@ describe User, type: :model do
   let(:password) { Faker::Alphanumeric.alpha(number: 10) }
   let(:first_name) { Faker::Name.first_name }
   let(:last_name) { Faker::Name.last_name }
-
   it 'is valid with attributes' do
     user = User.create(email: email,
                        password: password,
