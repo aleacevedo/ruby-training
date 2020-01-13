@@ -31,7 +31,7 @@ describe AccountsController, type: :controller do
       expect(JSON::Validator.validate(account_schema, accounts_responded,
                                       list: true)).to be true
     end
-
+    
     it 'responds with 10 accounts' do
       accounts_responded = response.parsed_body
       expect(accounts_responded.length).to be(10)
@@ -52,7 +52,7 @@ describe AccountsController, type: :controller do
       account_responded = response.parsed_body
       expect(account_responded.keys).to include('id', 'name')
     end
-
+    
     it 'JSON body response contains match attributes' do
       account_responded = response.parsed_body
       expect(account_responded.keys).to include('id', 'name')
@@ -78,6 +78,7 @@ describe AccountsController, type: :controller do
   end
 
   describe 'PUT #update' do
+  
     let(:account) { create :account }
     let(:new_account) { attributes_for :account }
     before do
