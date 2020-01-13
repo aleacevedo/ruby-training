@@ -10,8 +10,17 @@ describe AccountsController, type: :controller do
       type: 'object',
       required: %w[id name],
       properties: {
-        id: { 'type' => 'integer' },
-        name: { 'type' => 'string' }
+        id: { type: 'integer' },
+        name: { type: 'string' },
+        users: {
+          type: 'array',
+          properties: {
+            id: { type: 'integer' },
+            first_name: { type: 'string' },
+            last_name: { type: 'string' },
+            email: { type: 'string' }
+          }
+        }
       }
     }
   end
@@ -28,8 +37,8 @@ describe AccountsController, type: :controller do
 
     it 'JSON body response contains expected account attributes' do
       accounts_responded = response.parsed_body
-      expect(JSON::Validator.validate(account_schema, accounts_responded,
-                                      list: true)).to be true
+      expect(JSON::Validator.fully_validate(account_schema, accounts_responded,
+                                      list: true)).to be_empty
     end
     
     it 'responds with 10 accounts' do
@@ -73,7 +82,7 @@ describe AccountsController, type: :controller do
 
     it 'JSON body response match account attributes' do
       account_responded = response.parsed_body
-      expect(JSON::Validator.validate(account_schema, account_responded)).to be true
+      expect(JSON::Validator.fully_validate(account_schema, account_responded)).to be_empty
     end
   end
 
