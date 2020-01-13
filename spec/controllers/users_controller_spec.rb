@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe UsersController, type: :controller do
-  let (:user_schema) do
+  let(:user_schema) do
     {
       type: 'object',
       required: %w[id email first_name last_name],
@@ -22,7 +22,7 @@ describe UsersController, type: :controller do
       }
     end
     describe "GET #index" do
-    let! (:users) {create_list(:user, 20)}
+    let!(:users) {create_list(:user, 20)}
     before do
       get :index
     end
@@ -38,7 +38,7 @@ describe UsersController, type: :controller do
     end
   end
   describe 'GET #show' do
-    let! (:users) { create_list(:user, 20) }
+    let!(:users) { create_list(:user, 20) }
     before do
       get :show, params: { id: users[0].id }
     end
@@ -57,8 +57,8 @@ describe UsersController, type: :controller do
     end
   end
   describe 'POST #create' do
-    let (:account) { create :account }
-    let (:user) { attributes_for :user }
+    let(:account) { create :account }
+    let(:user) { attributes_for :user }
     before do
       user.merge!(account_id: account.id)
       post :create, params: { user: user }
@@ -72,8 +72,8 @@ describe UsersController, type: :controller do
     end
   end
   describe 'PUT #update' do
-    let (:user) { create :user }
-    let (:new_user) { attributes_for :user }
+    let(:user) { create :user }
+    let(:new_user) { attributes_for :user }
     before do
       put :update, params: { user: new_user, id: user.id }
     end

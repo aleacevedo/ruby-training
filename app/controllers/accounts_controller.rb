@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   def index
     limit = params[:limit] || 10
     page = params[:page] || 1
-    @accounts = Account.page(page).per(10)
+    @accounts = Account.page(page).per(limit)
     render json: @accounts, status: :ok
   end
 

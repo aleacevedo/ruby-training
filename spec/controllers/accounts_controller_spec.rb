@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe AccountsController, type: :controller do
-  let (:account_schema) do
+  let(:account_schema) do
     {
       type: 'object',
       required: %w[id name],
@@ -14,7 +14,7 @@ describe AccountsController, type: :controller do
     }
   end
   describe 'GET #index' do
-    let! (:accounts) { create_list(:account, 20) }
+    let!(:accounts) { create_list(:account, 20) }
     before do
       get :index
     end
@@ -23,7 +23,8 @@ describe AccountsController, type: :controller do
     end
     it 'JSON body response contains expected account attributes' do
       accounts_responded = response.parsed_body
-      expect(JSON::Validator.validate(account_schema, accounts_responded, list: true)).to be true
+      expect(JSON::Validator.validate(account_schema, accounts_responded,
+                                      list: true)).to be true
     end
     it 'responds with 10 accounts' do
       accounts_responded = response.parsed_body
@@ -31,7 +32,7 @@ describe AccountsController, type: :controller do
     end
   end
   describe 'GET #show' do
-    let! (:accounts) { create_list(:account, 20) }
+    let!(:accounts) { create_list(:account, 20) }
     before do
       get :show, params: { id: accounts[0].id }
     end
@@ -50,7 +51,7 @@ describe AccountsController, type: :controller do
     end
   end
   describe 'POST #create' do
-    let (:account) { attributes_for :account }
+    let(:account) { attributes_for :account }
     before do
       post :create, params: { account: account }
     end
@@ -63,8 +64,8 @@ describe AccountsController, type: :controller do
     end
   end
   describe 'PUT #update' do
-    let (:account) { create :account }
-    let (:new_account) { attributes_for :account }
+    let(:account) { create :account }
+    let(:new_account) { attributes_for :account }
     before do
       put :update, params: { account: new_account, id: account.id }
     end
