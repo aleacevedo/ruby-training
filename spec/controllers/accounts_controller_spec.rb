@@ -65,7 +65,6 @@ describe AccountsController, type: :controller do
       account_responded = response.parsed_body
       expect(account_responded.keys).to include('id', 'name')
     end
-
     it 'JSON body response contains match attributes' do
       account_responded = response.parsed_body
       expect(account_responded.keys).to include('id', 'name')
