@@ -37,6 +37,7 @@ group :development, :test do
   gem 'kaminari'
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', '~> 0.79.0', require: false
+  gem 'active_model_serializers', '~> 0.10.0'
 end
 
 group :development do
