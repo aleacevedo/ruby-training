@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe AccountsController, type: :controller do
-  describe "GET #index" do
-    let! (:accounts) {create_list(:account, 20)}
-    let (:account_schema) do
+  let (:account_schema) do
     {
       type: "object",
       required: ["id", "name"],
@@ -12,7 +10,9 @@ describe AccountsController, type: :controller do
         name: {"type" => "string"}
       }
     }
-    end
+  end
+  describe "GET #index" do
+    let! (:accounts) {create_list(:account, 20)}
     before do
         get :index
     end
@@ -57,8 +57,7 @@ describe AccountsController, type: :controller do
     end 
     it "JSON body response match account attributes" do
       account_responded = response.parsed_body
-      expect(account_responded.keys).to include("id", "name")
-      expect(account_responded["name"]).to match(account[:name])
+      expect(JSON::Validator.validate(account_schema, account_responded)).to be true
     end 
   end
   describe "PUT #update" do
