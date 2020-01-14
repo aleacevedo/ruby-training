@@ -13,23 +13,24 @@ describe UsersController, type: :controller do
         first_name: { 'type' => 'string' },
         last_name: { 'type' => 'string' },
         account_id: { 'type' => 'integer' }
-    }
-    end
-    let (:user_array_schema) do 
-      {
-        tye: "array",
-        items: user_schema
       }
-    end
-    describe "GET #index" do
-    let!(:users) {create_list(:user, 20)}
+    }
+  end
+  let(:user_array_schema) do
+    {
+      tye: 'array',
+      items: user_schema
+    }
+  end
+  describe 'GET #index' do
+    let!(:users) { create_list(:user, 20) }
     before do
       get :index
     end
     it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
-    it "JSON body response contains expected account attributes" do
+    it 'JSON body response contains expected account attributes' do
       expect(response).to match_json_schema(user_array_schema)
     end
     it 'responds with 10 users' do
@@ -45,7 +46,7 @@ describe UsersController, type: :controller do
     it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
-    it "JSON body response contains expected account attributes" do
+    it 'JSON body response contains expected account attributes' do
       expect(response).to match_json_schema(user_schema)
     end
     it 'JSON body response contains match attributes' do
