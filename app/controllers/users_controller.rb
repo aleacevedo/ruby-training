@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
     def index
         limit = params[:size] || 10
-        offset = params[:page] ? (limit * page) : (limit * 0)
-        @users = User.limit(limit).offset(offset)
+        page = params[:page] || 1
+        @users = User.limit(page).per(limit)
         render json: @users, status: :ok
     end
 
