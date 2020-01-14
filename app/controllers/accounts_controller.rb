@@ -1,33 +1,35 @@
+# frozen_string_literal: true
+
 class AccountsController < ApplicationController
-    def index
-        limit = params[:limit] || 10
-        page = params[:page] || 1
-        @accounts = Account.page(page).per(10)
-        render json: @accounts, status: :ok
-    end
+  def index
+    limit = params[:limit] || 10
+    page = params[:page] || 1
+    @accounts = Account.page(page).per(limit)
+    render json: @accounts, status: :ok
+  end
 
-    def show
-        @account = Account.find(params[:id])
-        render json: @account, status: :ok
-    end
+  def show
+    @account = Account.find(params[:id])
+    render json: @account, status: :ok
+  end
 
-    def create
-        @account = Account.create(create_account_params)
-        render json: @account, status: :created
-    end
+  def create
+    @account = Account.create(create_account_params)
+    render json: @account, status: :created
+  end
 
-    def update
-        Account.find(params[:id]).update(update_account_params)
-        render status: :ok
-    end
+  def update
+    Account.find(params[:id]).update(update_account_params)
+    render status: :ok
+  end
 
-    private
+  private
 
-    def create_account_params
-        params.require(:account).permit(:name)
-    end
+  def create_account_params
+    params.require(:account).permit(:name)
+  end
 
-    def update_account_params
-        params.require(:account).permit(:name)
-    end
+  def update_account_params
+    params.require(:account).permit(:name)
+  end
 end

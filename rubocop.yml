@@ -1,0 +1,32 @@
+AllCops:
+  Exclude:
+    - db/*.rb
+    - db/migrate/**/*
+    - bin/*
+    - vendor/**/*
+Documentation:
+  Enabled: false
+LineLength:
+  Max: 100
+  IgnoreCopDirectives: true
+FrozenStringLiteralComment:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - config/routes.rb
+    - config/environments/*.rb
+    - config/initializers/*.rb
+require:
+  - rubocop-faker
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-rails
+RSpec/NestedGroups:
+  Max: 5
+RSpec/AnyInstance:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/ScatteredSetup:
+  Enabled: false
