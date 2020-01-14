@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe AccountsController, type: :controller do
-  describe "GET #index" do
-    let! (:accounts) {FactoryGirl.create_list(:account, 20)}
-    let (:account_schema) do
+  let (:account_schema) do
     {
       type: "object",
       required: ["id", "name"],
@@ -12,7 +10,9 @@ describe AccountsController, type: :controller do
         name: {"type" => "string"}
       }
     }
-    end
+  end
+  describe "GET #index" do
+    let! (:accounts) {create_list(:account, 20)}
     before do
         get :index
     end
@@ -29,7 +29,7 @@ describe AccountsController, type: :controller do
     end  
   end 
   describe "GET #show" do
-    let! (:accounts) {FactoryGirl.create_list(:account, 20)}
+    let! (:accounts) {create_list(:account, 20)}
     before do
         get :show, params: {id: accounts[0].id}
     end
@@ -48,7 +48,7 @@ describe AccountsController, type: :controller do
     end
   end 
   describe "POST #create" do
-    let (:account) {FactoryGirl.attributes_for :account}
+    let (:account) {attributes_for :account}
     before do
       post :create, params: {account: account}
     end
@@ -57,13 +57,12 @@ describe AccountsController, type: :controller do
     end 
     it "JSON body response match account attributes" do
       account_responded = response.parsed_body
-      expect(account_responded.keys).to include("id", "name")
-      expect(account_responded["name"]).to match(account[:name])
+      expect(JSON::Validator.validate(account_schema, account_responded)).to be true
     end 
   end
   describe "PUT #update" do
-    let (:account) {FactoryGirl.create :account}
-    let (:new_account) {FactoryGirl.attributes_for :account}
+    let (:account) {create :account}
+    let (:new_account) {attributes_for :account}
     before do
       put :update, params: {account: new_account, id: account.id}
     end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User, type: :model do
-  let (:account) {FactoryGirl.create :account}
+  let (:account) {create :account}
   let (:email) {Faker::Internet.email}
   let (:password) {Faker::Alphanumeric.alpha(number: 10)}
   let (:first_name) {Faker::Name.first_name}
