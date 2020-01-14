@@ -54,7 +54,7 @@ describe User, type: :model do
                        account_id: account.id)
     expect(user).to_not be_valid
   end
-  
+
   it 'is not valid without account id' do
     user = User.create(email: email,
                        password: password,
@@ -63,7 +63,7 @@ describe User, type: :model do
                        account_id: nil)
     expect(user).to_not be_valid
   end
-  
+
   it 'is not valid with not unique email' do
     first_user = User.create(email: email,
                              password: password,

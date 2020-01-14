@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe AccountsController, type: :controller do
-
   let(:account_schema) do
     {
       type: 'object',
@@ -16,7 +15,6 @@ describe AccountsController, type: :controller do
   end
 
   describe 'GET #index' do
-
     let!(:accounts) { create_list(:account, 20) }
     before do
       get :index
@@ -39,7 +37,6 @@ describe AccountsController, type: :controller do
   end
 
   describe 'GET #show' do
-
     let!(:accounts) { create_list(:account, 20) }
     before do
       get :show, params: { id: accounts[0].id }
@@ -63,7 +60,6 @@ describe AccountsController, type: :controller do
   end
 
   describe 'POST #create' do
-
     let(:account) { attributes_for :account }
     before do
       post :create, params: { account: account }
@@ -80,7 +76,6 @@ describe AccountsController, type: :controller do
   end
 
   describe 'PUT #update' do
-
     let(:account) { create :account }
     let(:new_account) { attributes_for :account }
     before do
@@ -90,7 +85,7 @@ describe AccountsController, type: :controller do
     it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
-    
+
     it 'JSON body response match account attributes' do
       get :show, params: { id: account.id }
       account_responded = response.parsed_body

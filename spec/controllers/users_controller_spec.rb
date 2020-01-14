@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe UsersController, type: :controller do
-
   let(:user_schema) do
     {
       type: 'object',
@@ -26,7 +25,6 @@ describe UsersController, type: :controller do
   end
 
   describe 'GET #index' do
-
     let!(:users) { create_list(:user, 20) }
     before do
       get :index
@@ -47,7 +45,6 @@ describe UsersController, type: :controller do
   end
 
   describe 'GET #show' do
-
     let!(:users) { create_list(:user, 20) }
     before do
       get :show, params: { id: users[0].id }
@@ -71,7 +68,6 @@ describe UsersController, type: :controller do
   end
 
   describe 'POST #create' do
-
     let(:account) { create :account }
     let(:user) { attributes_for :user }
     before do
@@ -90,7 +86,6 @@ describe UsersController, type: :controller do
   end
 
   describe 'PUT #update' do
-
     let(:user) { create :user }
     let(:new_user) { attributes_for :user }
     before do
@@ -100,7 +95,7 @@ describe UsersController, type: :controller do
     it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
-    
+
     it 'JSON body response match account attributes' do
       get :show, params: { id: user.id }
       user_responded = response.parsed_body
