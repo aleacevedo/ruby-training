@@ -8,11 +8,17 @@ describe UsersController, type: :controller do
       type: 'object',
       required: %w[id email first_name last_name],
       properties: {
-        id: { 'type' => 'integer' },
-        email: { 'type' => 'string' },
-        first_name: { 'type' => 'string' },
-        last_name: { 'type' => 'string' },
-        account_id: { 'type' => 'integer' }
+        id: { type: 'integer' },
+        email: { type: 'string' },
+        first_name: { type: 'string' },
+        last_name: { type: 'string' },
+        account: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer' },
+            name: { type: 'string' }
+          }
+        }
       }
     }
   end
@@ -81,7 +87,7 @@ describe UsersController, type: :controller do
 
     it 'JSON body response match account attributes' do
       user_responded = response.parsed_body
-      expect(JSON::Validator.validate(user_schema, user_responded)).to be true
+      expect(JSON::Validator.fully_validate(user_schema, user_responded)).to be_empty
     end
   end
 
