@@ -3,9 +3,8 @@
 require 'rails_helper'
 
 describe AccountsController, type: :controller do
-  describe "GET #index" do
-    let! (:accounts) {create_list(:account, 20)}
-    let (:account_schema) do
+  let!(:accounts) { create_list(:account, 20) }
+  let(:account_schema) do
     {
       type: 'object',
       required: %w[id name],
@@ -25,6 +24,13 @@ describe AccountsController, type: :controller do
     }
   end
 
+  let(:account_array_schema) do
+    {
+      type: 'array',
+      items: account_schema
+    }
+  end
+
   describe 'GET #index' do
     let!(:accounts) { create_list(:account, 20) }
     before do
@@ -36,11 +42,9 @@ describe AccountsController, type: :controller do
     end
 
     it 'JSON body response contains expected account attributes' do
-      accounts_responded = response.parsed_body
-      expect(JSON::Validator.fully_validate(account_schema, accounts_responded,
-                                      list: true)).to be_empty
+      expect(response).to match_json_schema(account_array_schema)
     end
-    
+
     it 'responds with 10 accounts' do
       accounts_responded = response.parsed_body
       expect(accounts_responded.length).to be(10)
@@ -61,7 +65,7 @@ describe AccountsController, type: :controller do
       account_responded = response.parsed_body
       expect(account_responded.keys).to include('id', 'name')
     end
-    
+
     it 'JSON body response contains match attributes' do
       account_responded = response.parsed_body
       expect(account_responded.keys).to include('id', 'name')
@@ -81,13 +85,11 @@ describe AccountsController, type: :controller do
     end
 
     it 'JSON body response match account attributes' do
-      account_responded = response.parsed_body
-      expect(JSON::Validator.fully_validate(account_schema, account_responded)).to be_empty
+      expect(response).to match_json_schema(account_schema)
     end
   end
 
   describe 'PUT #update' do
-  
     let(:account) { create :account }
     let(:new_account) { attributes_for :account }
     before do
