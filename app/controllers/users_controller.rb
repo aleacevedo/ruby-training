@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'jwt'
+
 class UsersController < ApplicationController
   def index
     limit = params[:size] || 10
@@ -23,6 +25,13 @@ class UsersController < ApplicationController
     render status: :ok
   end
 
+  def generate_token
+    user = User.find_by email: params[:email]
+    return render status: 401 unless user.valid_password? params[:password]
+
+    render json: generate_jwt(user), status: :ok
+  end
+
   private
 
   def create_user_params
@@ -43,5 +52,11 @@ class UsersController < ApplicationController
                                  :first_name,
                                  :last_name,
                                  :account_id)
+  end
+
+  def generate_jwt(user)
+    payload = { data: { user_id: user.id, user_email: user.email } }
+    token = JWT.encode payload, user.encrypted_password, 'none'
+    token
   end
 end
