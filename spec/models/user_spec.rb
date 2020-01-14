@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 describe User, type: :model do
-  let (:account) {create :account}
-  let (:email) {Faker::Internet.email}
-  let (:password) {Faker::Alphanumeric.alpha(number: 10)}
-  let (:first_name) {Faker::Name.first_name}
-  let (:last_name) {Faker::Name.last_name}
-  it "is valid with attributes" do
+  let (:account) { create :account }
+  let (:email) { Faker::Internet.email }
+  let (:password) { Faker::Alphanumeric.alpha(number: 10) }
+  let (:first_name) { Faker::Name.first_name }
+  let (:last_name) { Faker::Name.last_name }
+  it 'is valid with attributes' do
     user = User.create(email: email, password: password, first_name: first_name, last_name: last_name, account_id: account.id)
     expect(user).to be_valid
   end

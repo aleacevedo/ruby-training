@@ -51,6 +51,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Gemfile
 group :test do
   gem 'database_cleaner', '~> 1.7'
-  gem "factory_bot_rails"
+  gem 'factory_bot_rails'
   gem 'match-json-schema', '~> 0.2.1'
 end
