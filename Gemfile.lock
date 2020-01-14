@@ -79,11 +79,6 @@ GEM
     factory_bot_rails (5.1.1)
       factory_bot (~> 5.1.0)
       railties (>= 4.2.0)
-    factory_girl (4.9.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
-      railties (>= 3.0.0)
     faker (2.10.0)
       i18n (>= 1.6, < 1.8)
     ffi (1.11.3)
@@ -215,7 +210,6 @@ DEPENDENCIES
   database_cleaner (~> 1.7)
   devise
   factory_bot_rails
-  factory_girl_rails
   faker
   json-schema
   kaminari
