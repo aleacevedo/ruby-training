@@ -14,6 +14,12 @@ describe UsersController, type: :controller do
         }
       }
     end
+    let (:user_array_schema) do 
+      {
+        tye: "array",
+        items: user_schema
+      }
+    end
     describe "GET #index" do
     let! (:users) {create_list(:user, 20)}
     before do
@@ -23,8 +29,7 @@ describe UsersController, type: :controller do
         expect(response).to have_http_status(:success)
     end
     it "JSON body response contains expected account attributes" do
-      users_responded = response.parsed_body
-      expect(JSON::Validator.validate(user_schema, users_responded, list: true)).to be true
+      expect(response).to match_json_schema(user_array_schema)
     end
     it "responds with 10 users" do
       users_responded = response.parsed_body
@@ -40,8 +45,7 @@ describe UsersController, type: :controller do
         expect(response).to have_http_status(:success)
     end
     it "JSON body response contains expected account attributes" do
-      user_responded = response.parsed_body
-      expect(JSON::Validator.validate(user_schema, user_responded)).to be true
+      expect(response).to match_json_schema(user_schema)
     end
     it "JSON body response contains match attributes" do
       user_responded = response.parsed_body
