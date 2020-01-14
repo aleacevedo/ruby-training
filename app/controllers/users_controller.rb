@@ -27,9 +27,9 @@ class UsersController < ApplicationController
 
   def generate_token
     user = User.find_by email: params[:email]
-    return render status: 401 unless user.valid_password? params[:password]
+    return render status: :unauthorized unless user.valid_password? params[:password]
 
-    render json: generate_jwt(user), status: :ok
+    render json: { token: generate_jwt(user) }, status: :ok
   end
 
   private
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
 
   def generate_jwt(user)
     payload = { data: { user_id: user.id, user_email: user.email } }
-    token = JWT.encode payload, user.encrypted_password, 'none'
+    token = JWT.encode payload, nil, 'none'
     token
   end
 end
