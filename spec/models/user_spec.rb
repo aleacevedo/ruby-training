@@ -77,4 +77,15 @@ describe User, type: :model do
     expect(first_user).to be_valid
     expect(last_user).to_not be_valid
   end
+  it 'is password encrypted' do
+    user = User.create(email: email,
+                       password: password,
+                       first_name: first_name,
+                       last_name: last_name,
+                       account_id: account.id)
+    saved_user = User.find(user.id)
+    bcrypt = ::BCrypt::Password.new(saved_user.encrypted_password)
+    encrypted_password = ::BCrypt::Engine.hash_secret(user.password, bcrypt.salt)
+    expect(Devise.secure_compare(encrypted_password, user.encrypted_password)).to be true
+  end
 end
