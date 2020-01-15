@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'jwt'
 
 describe UsersController, type: :controller do
   let(:user_schema) do
@@ -76,44 +75,76 @@ describe UsersController, type: :controller do
 
   describe 'POST #create' do
     let(:account) { create :account }
+    let(:admin_user) { create :user }
     let(:user) { attributes_for :user }
-    before do
-      user.merge!(account_id: account.id)
-      post :create, params: { user: user }
-    end
+    context 'when user is authenticated' do
+      include_context 'with authenticated user'
+      before do
+        user.merge!(account_id: account.id)
+        request.headers.merge! default_headers
+        post :create, params: { user: user }
+      end
 
-    it 'returns http success' do
-      expect(response).to have_http_status(:success)
-    end
+      it 'returns http success' do
+        expect(response).to have_http_status(:success)
+      end
 
-    it 'JSON body response match account attributes' do
-      user_responded = response.parsed_body
-      expect(JSON::Validator.fully_validate(user_schema, user_responded)).to be_empty
+      it 'JSON body response match account attributes' do
+        expect(response).to match_json_schema(user_schema)
+      end
+    end
+    context 'when user is not authenticated' do
+      before do
+        user.merge!(account_id: account.id)
+        post :create, params: { user: user }
+      end
+
+      it 'returns http unhautorized' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+
     end
   end
 
   describe 'PUT #update' do
     let(:user) { create :user }
     let(:new_user) { attributes_for :user }
-    before do
-      put :update, params: { user: new_user, id: user.id }
-    end
+    context 'when user is authenticated' do
+      include_context 'with authenticated user'
+      before do
+        request.headers.merge! default_headers
+        put :update, params: { user: new_user, id: user.id }
+      end
 
-    it 'returns http success' do
-      expect(response).to have_http_status(:success)
-    end
+      it 'returns http success' do
+        expect(response).to have_http_status(:success)
+      end
 
-    it 'JSON body response match account attributes' do
-      get :show, params: { id: user.id }
-      user_responded = response.parsed_body
-      expect(user_responded['email']).to match(new_user[:email])
+      it 'JSON body response match account attributes' do
+        get :show, params: { id: user.id }
+        user_responded = response.parsed_body
+        expect(user_responded['email']).to match(new_user[:email])
+      end
+    end
+    context 'when user is not authenticated' do
+      before do
+        put :update, params: { user: new_user, id: user.id }
+      end
+
+      it 'returns http unhautorized' do
+        expect(response).to have_http_status(:unauthorized)
+      end
     end
   end
 
   describe 'POST #generate_token' do
     let(:user) { create :user }
     before do
-      post :generate_token, params: { email: user.email, password: user.password }
+      post :generate_token, params:
+      {
+        email: user.email,
+        password: user.password
+      }
     end
 
     it 'return http success with valid email and password' do
@@ -126,7 +157,11 @@ describe UsersController, type: :controller do
     end
 
     it 'return http succes with not valid email and password' do
-      post :generate_token, params: { email: user.email, password: ('wrong' + user.password) }
+      post :generate_token, params:
+      {
+        email: user.email,
+        password: ('wrong' + user.password)
+      }
       expect(response).to have_http_status(:unauthorized)
     end
   end
