@@ -3,6 +3,7 @@
 require 'jwt'
 
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: %i[create update]
   def index
     limit = params[:size] || 10
     page = params[:page] || 1

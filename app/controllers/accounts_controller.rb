@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
+  before_action :authenticate_user!, only: %i[create update]
   def index
     limit = params[:limit] || 10
     page = params[:page] || 1
