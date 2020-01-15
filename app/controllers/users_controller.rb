@@ -28,7 +28,9 @@ class UsersController < ApplicationController
 
   def generate_token
     user = User.find_by email: params[:email]
-    return render status: :unauthorized unless user.valid_password? params[:password]
+    unless user.valid_password? params[:password]
+      return render status: :unauthorized
+    end
 
     render json: { token: generate_jwt(user) }, status: :ok
   end
