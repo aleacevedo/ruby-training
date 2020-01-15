@@ -102,7 +102,6 @@ describe UsersController, type: :controller do
       it 'returns http unhautorized' do
         expect(response).to have_http_status(:unauthorized)
       end
-
     end
   end
 

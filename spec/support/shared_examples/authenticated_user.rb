@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context 'with authenticated user' do
   let(:admin_user) { create(:user) }
   let(:default_headers) do
