@@ -77,13 +77,13 @@ describe UsersController, type: :controller do
     let(:account) { create :account }
     let(:admin_user) { create :user }
     let(:user) { attributes_for :user }
+    before do
+      user.merge!(account_id: account.id)
+      request.headers.merge! default_headers
+      post :create, params: { user: user }
+    end
     context 'when user is authenticated' do
       include_context 'with authenticated user'
-      before do
-        user.merge!(account_id: account.id)
-        request.headers.merge! default_headers
-        post :create, params: { user: user }
-      end
 
       it 'returns http success' do
         expect(response).to have_http_status(:success)
@@ -94,11 +94,7 @@ describe UsersController, type: :controller do
       end
     end
     context 'when user is not authenticated' do
-      before do
-        user.merge!(account_id: account.id)
-        post :create, params: { user: user }
-      end
-
+      let(:default_headers) { {} }
       it 'returns http unhautorized' do
         expect(response).to have_http_status(:unauthorized)
       end
@@ -108,12 +104,12 @@ describe UsersController, type: :controller do
   describe 'PUT #update' do
     let(:user) { create :user }
     let(:new_user) { attributes_for :user }
+    before do
+      request.headers.merge! default_headers
+      put :update, params: { user: new_user, id: user.id }
+    end
     context 'when user is authenticated' do
       include_context 'with authenticated user'
-      before do
-        request.headers.merge! default_headers
-        put :update, params: { user: new_user, id: user.id }
-      end
 
       it 'returns http success' do
         expect(response).to have_http_status(:success)
@@ -126,10 +122,7 @@ describe UsersController, type: :controller do
       end
     end
     context 'when user is not authenticated' do
-      before do
-        put :update, params: { user: new_user, id: user.id }
-      end
-
+      let(:default_headers) { {} }
       it 'returns http unhautorized' do
         expect(response).to have_http_status(:unauthorized)
       end
@@ -155,7 +148,7 @@ describe UsersController, type: :controller do
       expect(decoded_token[0]['data']['user_email']).to match(user.email)
     end
 
-    it 'return http succes with not valid email and password' do
+    it 'return http unauthorized with not valid email and password' do
       post :generate_token, params:
       {
         email: user.email,
