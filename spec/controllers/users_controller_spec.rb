@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'jwt'
 
 describe UsersController, type: :controller do
   let(:user_schema) do
@@ -106,6 +107,27 @@ describe UsersController, type: :controller do
       get :show, params: { id: user.id }
       user_responded = response.parsed_body
       expect(user_responded['email']).to match(new_user[:email])
+    end
+  end
+
+  describe 'POST #generate_token' do
+    let(:user) { create :user }
+    before do
+      post :generate_token, params: { email: user.email, password: user.password }
+    end
+
+    it 'return http success with valid email and password' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'token payload is correct' do
+      decoded_token = JWT.decode response.parsed_body['token'], nil, false
+      expect(decoded_token[0]['data']['user_email']).to match(user.email)
+    end
+
+    it 'return http succes with not valid email and password' do
+      post :generate_token, params: { email: user.email, password: ('wrong' + user.password) }
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 end
