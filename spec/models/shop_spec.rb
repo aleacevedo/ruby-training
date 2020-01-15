@@ -1,5 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe Shop, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Shop, type: :model do
+  let(:name) { Faker::Company.name }
+  it 'is valid with valid attributes' do
+    account = Shop.new(name: name)
+    expect(account).to be_valid
+  end
+  it 'is not valid without a name' do
+    account = Shop.new
+    expect(account).to_not be_valid
+  end
 end
