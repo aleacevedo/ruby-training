@@ -3,6 +3,7 @@
 require 'jwt'
 
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: %i[create update]
   def index
     limit = params[:size] || 10
     page = params[:page] || 1
@@ -27,7 +28,9 @@ class UsersController < ApplicationController
 
   def generate_token
     user = User.find_by email: params[:email]
-    return render status: :unauthorized unless user.valid_password? params[:password]
+    unless user.valid_password? params[:password]
+      return render status: :unauthorized
+    end
 
     render json: { token: generate_jwt(user) }, status: :ok
   end
