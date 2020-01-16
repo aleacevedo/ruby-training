@@ -4,8 +4,6 @@ class CreateCredentials < ActiveRecord::Migration[6.0]
       t.string :login, null: false
       t.string :password, null: false
 
-      t.belongs_to :establishment
-
       t.timestamps
     end
     add_index :credentials, :login, unique: true
