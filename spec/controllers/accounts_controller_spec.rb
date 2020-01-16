@@ -5,33 +5,6 @@ require 'rails_helper'
 describe AccountsController, type: :controller do
   let!(:accounts) { create_list(:account, 20) }
   let(:admin_user) { create(:user) }
-  let(:account_schema) do
-    {
-      type: 'object',
-      required: %w[id name],
-      properties: {
-        id: { type: 'integer' },
-        name: { type: 'string' },
-        users: {
-          type: 'array',
-          properties: {
-            id: { type: 'integer' },
-            first_name: { type: 'string' },
-            last_name: { type: 'string' },
-            email: { type: 'string' }
-          }
-        }
-      }
-    }
-  end
-
-  let(:account_array_schema) do
-    {
-      type: 'array',
-      items: account_schema
-    }
-  end
-
   describe 'GET #index' do
     let!(:accounts) { create_list(:account, 20) }
     before do
@@ -43,7 +16,7 @@ describe AccountsController, type: :controller do
     end
 
     it 'JSON body response contains expected account attributes' do
-      expect(response).to match_json_schema(account_array_schema)
+      expect(response).to match_json_schema('account_array')
     end
 
     it 'responds with 10 accounts' do
@@ -88,7 +61,7 @@ describe AccountsController, type: :controller do
       end
 
       it 'JSON body response match account attributes' do
-        expect(response).to match_json_schema(account_schema)
+        expect(response).to match_json_schema('account')
       end
     end
     context 'when user is not authenticated' do
