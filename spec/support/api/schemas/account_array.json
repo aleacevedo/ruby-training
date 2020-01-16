@@ -1,0 +1,5 @@
+{
+  "id": "file:/account_array.json#",
+  "type": "array",
+  "items": {"$ref": "file:/account.json#"}
+}
