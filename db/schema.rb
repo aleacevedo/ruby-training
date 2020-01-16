@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_172538) do
+ActiveRecord::Schema.define(version: 2020_01_16_192154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,13 +19,6 @@ ActiveRecord::Schema.define(version: 2020_01_16_172538) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "credential_establishments", force: :cascade do |t|
-    t.bigint "credentials_id", null: false
-    t.bigint "establishment_id", null: false
-    t.index ["credentials_id"], name: "index_credential_establishments_on_credentials_id"
-    t.index ["establishment_id"], name: "index_credential_establishments_on_establishment_id"
   end
 
   create_table "credentials", force: :cascade do |t|
@@ -41,6 +34,8 @@ ActiveRecord::Schema.define(version: 2020_01_16_172538) do
     t.bigint "shop_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "credentials_id"
+    t.index ["credentials_id"], name: "index_establishments_on_credentials_id"
     t.index ["number"], name: "index_establishments_on_number", unique: true
     t.index ["shop_id"], name: "index_establishments_on_shop_id"
   end
