@@ -9,12 +9,14 @@ class CreatePayments < ActiveRecord::Migration[6.0]
       t.string :card_brando
       t.string :clearing_number
       t.decimal :total_amount
-      t.decimal, :total_deduction
+      t.decimal :total_deduction
       t.decimal :total_earn
       t.decimal :opening_balance
       t.decimal :closing_balance
       t.string :currency
       t.boolean :is_balanced
+
+      t.belongs_to :establishment
 
       t.timestamps
     end
