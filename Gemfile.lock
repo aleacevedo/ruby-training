@@ -280,6 +280,7 @@ DEPENDENCIES
   rubocop (~> 0.79.0)
   spring
   spring-watcher-listen (~> 2.0.0)
+  thor (~> 1.0)
   tzinfo-data
 
 RUBY VERSION

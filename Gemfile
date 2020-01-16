@@ -38,6 +38,7 @@ group :development, :test do
   gem 'kaminari'
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', '~> 0.79.0', require: false
+  gem "thor", "~> 1.0"
 end
 
 group :development do
@@ -56,3 +57,5 @@ group :test do
   gem 'factory_bot_rails'
   gem "json_matchers", "~> 0.11.1"
 end
+
+

@@ -15,3 +15,18 @@ FactoryBot.define do
     account
   end
 end
+
+FactoryBot.define do
+  factory :shop do
+    name { Faker::Company.name }
+    address { Faker::Address.full_address }
+    account
+  end
+end
+
+FactoryBot.define do
+  factory :establishment do
+    number { Faker::Number.number.to_s }
+    shop
+  end
+end
