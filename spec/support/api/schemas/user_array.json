@@ -1,5 +1,12 @@
 {
+<<<<<<< HEAD
   "id": "file:/user_array.json#",
   "type": "array",
   "items": {"$ref": "file:/user.json#"}
 }
+=======
+    "id": "file:/user_array.json#",
+    "type": "array",
+    "items": {"$ref": "file:/user.json#"}
+  }
+>>>>>>> User JSON_matcher
