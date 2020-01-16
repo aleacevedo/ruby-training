@@ -1,12 +1,6 @@
 {
-<<<<<<< HEAD
   "id": "file:/account_array.json#",
   "type": "array",
   "items": {"$ref": "file:/account.json#"}
 }
-=======
-    "id": "file:/account_array.json#",
-    "type": "array",
-    "items": {"$ref": "file:/account.json#"}
-  }
->>>>>>> User JSON_matcher
+

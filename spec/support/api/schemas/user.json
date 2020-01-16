@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "id": "file:/user.json#",
   "type": "object",
   "required": ["id", "email", "first_name", "last_name"],
@@ -17,22 +16,3 @@
     }
   }
 }
-=======
-    "id": "file:/user.json#",
-    "type": "object",
-    "required": ["id", "email", "first_name", "last_name"],
-    "properties": {
-      "id": { "type": "integer" },
-      "email": { "type": "string" },
-      "first_name": { "type": "string" },
-      "last_name": { "type": "string" },
-      "account": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "integer" },
-          "name": { "type": "string" }
-        }
-      }
-    }
-  }
->>>>>>> User JSON_matcher
