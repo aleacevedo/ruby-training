@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_133618) do
+ActiveRecord::Schema.define(version: 2020_01_16_172538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,21 @@ ActiveRecord::Schema.define(version: 2020_01_16_133618) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "credential_establishments", force: :cascade do |t|
+    t.bigint "credentials_id", null: false
+    t.bigint "establishment_id", null: false
+    t.index ["credentials_id"], name: "index_credential_establishments_on_credentials_id"
+    t.index ["establishment_id"], name: "index_credential_establishments_on_establishment_id"
+  end
+
+  create_table "credentials", force: :cascade do |t|
+    t.string "login", null: false
+    t.string "password", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["login"], name: "index_credentials_on_login", unique: true
   end
 
   create_table "establishments", force: :cascade do |t|
@@ -55,4 +70,6 @@ ActiveRecord::Schema.define(version: 2020_01_16_133618) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "credential_establishments", "credentials", column: "credentials_id"
+  add_foreign_key "credential_establishments", "establishments"
 end
