@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 2020_01_16_192154) do
     t.bigint "shop_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "credentials_id"
-    t.index ["credentials_id"], name: "index_establishments_on_credentials_id"
+    t.bigint "credential_id"
+    t.index ["credential_id"], name: "index_establishments_on_credentials_id"
     t.index ["number"], name: "index_establishments_on_number", unique: true
     t.index ["shop_id"], name: "index_establishments_on_shop_id"
   end
@@ -65,6 +65,4 @@ ActiveRecord::Schema.define(version: 2020_01_16_192154) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "credential_establishments", "credentials", column: "credentials_id"
-  add_foreign_key "credential_establishments", "establishments"
 end
