@@ -27,8 +27,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
-
-gem "thor", "~> 1.0"
+gem 'thor', '~> 1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -41,7 +40,7 @@ group :development, :test do
   gem 'kaminari'
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', '~> 0.79.0', require: false
-  gem "thor", "~> 1.0"
+  gem 'thor', '~> 1.0'
 end
 
 group :development do
@@ -58,6 +57,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 group :test do
   gem 'database_cleaner', '~> 1.7'
   gem 'factory_bot_rails'
-  gem "json_matchers", "~> 0.11.1"
+  gem 'json_matchers', '~> 0.11.1'
 end
 
