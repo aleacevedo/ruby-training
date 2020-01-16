@@ -59,4 +59,3 @@ group :test do
   gem 'factory_bot_rails'
   gem 'json_matchers', '~> 0.11.1'
 end
-
