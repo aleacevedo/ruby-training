@@ -3,7 +3,7 @@ class CreatePayments < ActiveRecord::Migration[6.0]
     create_table :payments do |t|
       t.date :payment_date
       t.date :origin_date
-      t.integer :info_provider
+      t.integer :provider
       t.string :document_type
       t.string :card_brando
       t.string :clearing_number
@@ -12,7 +12,7 @@ class CreatePayments < ActiveRecord::Migration[6.0]
       t.decimal :total_earn
       t.decimal :opening_balance
       t.decimal :closing_balance
-      t.string :currency
+      t.integer :currency
       t.boolean :is_balanced
 
       t.belongs_to :establishment
