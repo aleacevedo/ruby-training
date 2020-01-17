@@ -3,8 +3,7 @@ class CreatePayments < ActiveRecord::Migration[6.0]
     create_table :payments do |t|
       t.date :payment_date
       t.date :origin_date
-      t.string :info_provider
-      t.string :info_provider
+      t.integer :info_provider
       t.string :document_type
       t.string :card_brando
       t.string :clearing_number
