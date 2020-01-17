@@ -9,7 +9,7 @@ describe User, type: :model do
   let(:first_name) { Faker::Name.first_name }
   let(:last_name) { Faker::Name.last_name }
   it 'is valid with attributes' do
-    user = User.create(email: email,
+    user = User.new(email: email,
                        password: password,
                        first_name: first_name,
                        last_name: last_name,
@@ -18,7 +18,7 @@ describe User, type: :model do
   end
 
   it 'is not valid without email' do
-    user = User.create(email: nil,
+    user = User.new(email: nil,
                        password: password,
                        first_name: first_name,
                        last_name:
@@ -28,7 +28,7 @@ describe User, type: :model do
   end
 
   it 'is not valid without password' do
-    user = User.create(email: email,
+    user = User.new(email: email,
                        password: nil,
                        first_name: first_name,
                        last_name: last_name,
@@ -37,7 +37,7 @@ describe User, type: :model do
   end
 
   it 'is not valid without first name' do
-    user = User.create(email: email,
+    user = User.new(email: email,
                        password: password,
                        first_name: nil,
                        last_name: last_name,
@@ -46,7 +46,7 @@ describe User, type: :model do
   end
 
   it 'is not valid without last name' do
-    user = User.create(email: email,
+    user = User.new(email: email,
                        password: password,
                        first_name: first_name,
                        last_name: nil,
@@ -55,7 +55,7 @@ describe User, type: :model do
   end
 
   it 'is not valid without account id' do
-    user = User.create(email: email,
+    user = User.new(email: email,
                        password: password,
                        first_name: first_name,
                        last_name: last_name,
@@ -69,7 +69,7 @@ describe User, type: :model do
                              first_name: first_name,
                              last_name: last_name,
                              account_id: account.id)
-    last_user = User.create(email: email,
+    last_user = User.new(email: email,
                             password: password,
                             first_name: first_name,
                             last_name: last_name,

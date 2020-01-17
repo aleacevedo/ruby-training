@@ -12,12 +12,12 @@ describe Establishment, type: :model do
   end
 
   it 'is not valid without number' do
-    establishment = Establishment.create(shop_id: shop.id)
+    establishment = Establishment.new(shop_id: shop.id)
     expect(establishment).to_not be_valid
   end
 
   it 'is not valid without shop_id' do
-    establishment = Establishment.create(number: number)
+    establishment = Establishment.new(number: number)
     expect(establishment).to_not be_valid
   end
 end
