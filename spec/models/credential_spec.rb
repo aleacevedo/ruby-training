@@ -23,7 +23,7 @@ RSpec.describe Credential, type: :model do
   end
 
   context 'when credential alredy exists' do
-    include_context 'credential created'
+    let(:old_credential) { create(:credential) }
     it 'is not valid wit same login' do
       new_credential = Credential.create(login: old_credential.login)
       expect(new_credential).to_not be_valid

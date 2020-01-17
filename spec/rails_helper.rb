@@ -5,7 +5,6 @@ require 'faker'
 require 'json'
 require 'factory_bot_rails'
 require './spec/support/shared_examples/authenticated_user.rb'
-require './spec/support/shared_examples/credential.rb'
 
 
 require 'spec_helper'
