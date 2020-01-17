@@ -6,4 +6,12 @@ class Payment < ApplicationRecord
   belongs_to :establishment
 
   validates :clearing_number, presence: true, uniqueness: true
+
+  before_save :check_is_balanced
+
+  private
+
+  def check_is_balanced
+    self.is_balanced = (opening_balance == closing_balance)
+  end
 end
