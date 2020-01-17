@@ -22,12 +22,11 @@ RSpec.describe Credential, type: :model do
     expect(credential).to_not be_valid
   end
 
-  it 'is not valid wit same login' do
-    credential = Credential.create(login: login,
-                                   password: password)
-    expect(credential).to be_valid
-    new_credential = Credential.create(login: login,
-                                       password: 'other' + password)
-    expect(new_credential).to_not be_valid
+  context 'when credential alredy exists' do
+    include_context 'credential created'
+    it 'is not valid wit same login' do
+      new_credential = Credential.create(login: old_credential.login)
+      expect(new_credential).to_not be_valid
+    end
   end
 end
