@@ -40,6 +40,26 @@ ActiveRecord::Schema.define(version: 2020_01_16_192154) do
     t.index ["shop_id"], name: "index_establishments_on_shop_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.date "payment_date"
+    t.date "origin_date"
+    t.integer "provider"
+    t.string "document_type"
+    t.string "card_brando"
+    t.string "clearing_number"
+    t.decimal "total_amount"
+    t.decimal "total_deduction"
+    t.decimal "total_earn"
+    t.decimal "opening_balance"
+    t.decimal "closing_balance"
+    t.integer "currency"
+    t.boolean "is_balanced"
+    t.bigint "establishment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["establishment_id"], name: "index_payments_on_establishment_id"
+  end
+
   create_table "shops", force: :cascade do |t|
     t.string "name", null: false
     t.string "address"
