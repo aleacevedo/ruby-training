@@ -4,9 +4,8 @@ class CreatePayments < ActiveRecord::Migration[6.0]
       t.date :payment_date
       t.date :origin_date
       t.integer :provider
-      t.string :document_type
-      t.string :card_brando
-      t.string :clearing_number
+      t.integer :document_type
+      t.integer :clearing_number, unique: true
       t.decimal :total_amount
       t.decimal :total_deduction
       t.decimal :total_earn
