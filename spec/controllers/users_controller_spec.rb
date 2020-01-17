@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe UsersController, type: :controller do
-
   describe 'GET #index' do
     let!(:users) { create_list(:user, 20) }
     before do

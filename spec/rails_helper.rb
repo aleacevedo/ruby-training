@@ -6,6 +6,7 @@ require 'json'
 require 'factory_bot_rails'
 require './spec/support/shared_examples/authenticated_user.rb'
 
+
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 
