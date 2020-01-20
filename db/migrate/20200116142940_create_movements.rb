@@ -10,6 +10,15 @@ class CreateMovements < ActiveRecord::Migration[6.0]
       t.string :card_number
       t.string :coupon_number
 
+      t.integer :installments_current
+      t.integer :installments_number
+      t.integer :installments_total
+      t.big_decimal :discount_amount
+
+      t.string :description_code
+
+      t.belongs_to :payment
+
       t.timestamps
     end
   end
