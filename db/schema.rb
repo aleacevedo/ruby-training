@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2020_01_16_192154) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "credential_id"
-    t.index ["credential_id"], name: "index_establishments_on_credentials_id"
+    t.index ["credential_id"], name: "index_establishments_on_credential_id"
     t.index ["number"], name: "index_establishments_on_number", unique: true
     t.index ["shop_id"], name: "index_establishments_on_shop_id"
   end
