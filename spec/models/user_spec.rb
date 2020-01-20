@@ -10,56 +10,56 @@ describe User, type: :model do
   let(:last_name) { Faker::Name.last_name }
   it 'is valid with attributes' do
     user = User.new(email: email,
-                       password: password,
-                       first_name: first_name,
-                       last_name: last_name,
-                       account_id: account.id)
+                    password: password,
+                    first_name: first_name,
+                    last_name: last_name,
+                    account_id: account.id)
     expect(user).to be_valid
   end
 
   it 'is not valid without email' do
     user = User.new(email: nil,
-                       password: password,
-                       first_name: first_name,
-                       last_name:
+                    password: password,
+                    first_name: first_name,
+                    last_name:
                        last_name,
-                       account_id: account.id)
+                    account_id: account.id)
     expect(user).to_not be_valid
   end
 
   it 'is not valid without password' do
     user = User.new(email: email,
-                       password: nil,
-                       first_name: first_name,
-                       last_name: last_name,
-                       account_id: account.id)
+                    password: nil,
+                    first_name: first_name,
+                    last_name: last_name,
+                    account_id: account.id)
     expect(user).to_not be_valid
   end
 
   it 'is not valid without first name' do
     user = User.new(email: email,
-                       password: password,
-                       first_name: nil,
-                       last_name: last_name,
-                       account_id: account.id)
+                    password: password,
+                    first_name: nil,
+                    last_name: last_name,
+                    account_id: account.id)
     expect(user).to_not be_valid
   end
 
   it 'is not valid without last name' do
     user = User.new(email: email,
-                       password: password,
-                       first_name: first_name,
-                       last_name: nil,
-                       account_id: account.id)
+                    password: password,
+                    first_name: first_name,
+                    last_name: nil,
+                    account_id: account.id)
     expect(user).to_not be_valid
   end
 
   it 'is not valid without account id' do
     user = User.new(email: email,
-                       password: password,
-                       first_name: first_name,
-                       last_name: last_name,
-                       account_id: nil)
+                    password: password,
+                    first_name: first_name,
+                    last_name: last_name,
+                    account_id: nil)
     expect(user).to_not be_valid
   end
 
@@ -70,10 +70,10 @@ describe User, type: :model do
                              last_name: last_name,
                              account_id: account.id)
     last_user = User.new(email: email,
-                            password: password,
-                            first_name: first_name,
-                            last_name: last_name,
-                            account_id: account.id)
+                         password: password,
+                         first_name: first_name,
+                         last_name: last_name,
+                         account_id: account.id)
     expect(first_user).to be_valid
     expect(last_user).to_not be_valid
   end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'json_matchers/rspec'
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 JsonMatchers.schema_root = 'spec/support/api/schemas'
 
