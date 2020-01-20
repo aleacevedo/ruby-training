@@ -5,10 +5,10 @@ class Transaction < Movement
             presence: true,
             if: :any_installments?
 
-def any_installments?
-  installments = [self[:installments_current],
-                  self[:installments_number],
-                  self[:installments_total]]
-  installments.any?(&:present?)
-end
+  def any_installments?
+    installments = [self[:installments_current],
+                    self[:installments_number],
+                    self[:installments_total]]
+    installments.any?(&:present?)
+  end
 end
