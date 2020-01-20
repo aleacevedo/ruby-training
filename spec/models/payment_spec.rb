@@ -26,16 +26,19 @@ describe Payment, type: :model do
     expect { Payment.new(payment_attrs) }.to raise_error(ArgumentError)
   end
 
-  context 'check is balanced concistency' do
-    it 'is balanced true' do
-      payment_attrs[:closing_balance] = payment_attrs[:opening_balance]
-      payment = Payment.create(payment_attrs)
-      expect(payment.is_balanced).to be true
-    end
+  context 'when opening_balance is different than closing_balance' do
     it 'is balanced false' do
       payment_attrs[:opening_balance] = (payment_attrs[:closing_balance] + 1)
       payment = Payment.create(payment_attrs)
       expect(payment.is_balanced).to be false
+    end
+  end
+
+  context 'when opening_balance is the same as closing_balance' do
+    it 'is balanced true' do
+      payment_attrs[:closing_balance] = payment_attrs[:opening_balance]
+      payment = Payment.create(payment_attrs)
+      expect(payment.is_balanced).to be true
     end
   end
 
