@@ -5,7 +5,7 @@ class CreateMovements < ActiveRecord::Migration[6.0]
       t.date :payment_date
       t.date :origin_date
       t.integer :provider
-      t.big_decimal :amount
+      t.decimal :amount
       t.integer :currency
       t.string :card_number
       t.string :coupon_number
@@ -13,7 +13,7 @@ class CreateMovements < ActiveRecord::Migration[6.0]
       t.integer :installments_current
       t.integer :installments_number
       t.integer :installments_total
-      t.big_decimal :discount_amount
+      t.decimal :discount_amount
 
       t.string :description_code
 
