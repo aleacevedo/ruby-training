@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
-
   let(:transaction_attrs) { attributes_for :transaction }
-  
+
   it_behaves_like 'a movement'
 
   it 'valid with valid transaction attributes' do

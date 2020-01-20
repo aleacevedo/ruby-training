@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Payment < ApplicationRecord
   enum provider: %i[visa mastercard amex cabal]
   enum document_type: %i[pdf txt csv]

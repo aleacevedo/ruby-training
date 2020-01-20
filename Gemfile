@@ -58,4 +58,4 @@ group :test do
   gem 'json_matchers', '~> 0.11.1'
 end
 
-gem "thor", "~> 1.0"
+gem 'thor', '~> 1.0'

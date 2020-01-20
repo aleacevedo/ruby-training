@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Transaction < Movement
   validates :installments_current,
             :installments_number,
