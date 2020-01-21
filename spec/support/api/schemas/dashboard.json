@@ -1,0 +1,11 @@
+{   
+  "id": "file:/dashboard.json#",
+  "type": "object",
+  "required": ["today_amount", "tomorrow_amount", "chargeback_refunds", "month"],
+  "properties": {
+    "today_amount": { "type": "string" },
+    "tomorrow_amount": { "type": "string" },
+    "chargeback_refund": { "type": "string" },
+    "month": { "type": "object" }
+  }
+}
