@@ -9,33 +9,33 @@ RSpec.describe DashboardController, type: :controller do
       include_context 'with authenticated user'
 
       before :all do
-        Timecop.freeze(Date.parse('2019-01-31'))
+        Timecop.freeze(Date.parse('2020-01-31'))
         shop = create(:shop)
         establishment = create(:establishment, shop: shop)
-        (Date.today.at_beginning_of_month - 2...Date.today.at_end_of_month).each do |date|
+        (Date.today.at_beginning_of_month...Date.today.at_end_of_month + 2).each do |date|
           payments = create_list(:payment,
                                 5,
                                 total_amount: 1,
-                                origin_date: date,
-                                payment_date: date + 2,
+                                origin_date: date - 1,
+                                payment_date: date,
                                 establishment: establishment)
           transactions = create_list(:transaction,
-                                    5,
-                                    amount: 1,
-                                    origin_date: date,
-                                    payment_date: date + 2,
-                                    payment: payments[0])
+                                     5,
+                                     amount: 1,
+                                     origin_date: date - 1,
+                                     payment_date: date,
+                                     payment: payments[0])
           refunds = create_list(:refund,
-                                5,
+                                20,
                                 amount: 1,
-                                origin_date: date,
-                                payment_date: date + 2,
+                                origin_date: date - 1,
+                                payment_date: date,
                                 payment: payments[0])
           chargeback = create_list(:chargeback,
-                                  5,
+                                  10,
                                   amount: 1,
-                                  origin_date: date,
-                                  payment_date: date + 2,
+                                  origin_date: date - 1,
+                                  payment_date: date,
                                   payment: payments[0])
         end
       end
@@ -53,9 +53,43 @@ RSpec.describe DashboardController, type: :controller do
         expect(response).to match_json_schema('dashboard')
       end
 
-      it 'responds with right today_amount', :focus => true do
+      it 'responds with right today_amount' do
         dashboard_responder = response.parsed_body
         expect(dashboard_responder["today_amount"]).to eq("5.0")
+      end
+
+      it 'responds with right tomorrow_amount' do
+        dashboard_responder = response.parsed_body
+        expect(dashboard_responder["tomorrow_amount"]).to eq("5.0")
+      end
+
+      it 'responds with right chargeback_refund' do
+        dashboard_responder = response.parsed_body
+        expect(dashboard_responder["chargeback_refunds"]).to eq("30.0")
+      end
+
+      it 'responds with right month' do
+        month = response.parsed_body['month']
+        month.each do |day|
+          expect(day[1]['payment_amount']).to eq("5.0")
+          expect(day[1]['transaction_count']).to eq(5)
+        end
+      end
+
+      it 'responds with right month' do
+        month = response.parsed_body['month']
+        expect(month.length).to be(Time.days_in_month(Date.today.month))
+      end
+    end
+    context 'when user not is authenticated' do
+      let(:default_headers) { {} }
+
+      before do 
+        get :index
+      end
+
+      it 'returns http success' do
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end
