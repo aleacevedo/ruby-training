@@ -6,6 +6,7 @@ class Payment < ApplicationRecord
   enum currency: %i[usd ars]
 
   belongs_to :establishment
+  has_many :movements
 
   validates :clearing_number, presence: true, uniqueness: true
 
