@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe DashboardController, type: :controller do
@@ -14,11 +16,11 @@ RSpec.describe DashboardController, type: :controller do
         establishment = create(:establishment, shop: shop)
         (Date.today.at_beginning_of_month...Date.today.at_end_of_month + 2).each do |date|
           payments = create_list(:payment,
-                                5,
-                                total_amount: 1,
-                                origin_date: date - 1,
-                                payment_date: date,
-                                establishment: establishment)
+                                 5,
+                                 total_amount: 1,
+                                 origin_date: date - 1,
+                                 payment_date: date,
+                                 establishment: establishment)
           transactions = create_list(:transaction,
                                      5,
                                      amount: 1,
@@ -32,15 +34,15 @@ RSpec.describe DashboardController, type: :controller do
                                 payment_date: date,
                                 payment: payments[0])
           chargeback = create_list(:chargeback,
-                                  10,
-                                  amount: 1,
-                                  origin_date: date - 1,
-                                  payment_date: date,
-                                  payment: payments[0])
+                                   10,
+                                   amount: 1,
+                                   origin_date: date - 1,
+                                   payment_date: date,
+                                   payment: payments[0])
         end
       end
 
-      before do 
+      before do
         Shop.last.update(account: admin_user.account)
         get :index
       end
@@ -55,23 +57,23 @@ RSpec.describe DashboardController, type: :controller do
 
       it 'responds with right today_amount' do
         dashboard_responder = response.parsed_body
-        expect(dashboard_responder["today_amount"]).to eq("5.0")
+        expect(dashboard_responder['today_amount']).to eq('5.0')
       end
 
       it 'responds with right tomorrow_amount' do
         dashboard_responder = response.parsed_body
-        expect(dashboard_responder["tomorrow_amount"]).to eq("5.0")
+        expect(dashboard_responder['tomorrow_amount']).to eq('5.0')
       end
 
       it 'responds with right chargeback_refund' do
         dashboard_responder = response.parsed_body
-        expect(dashboard_responder["chargeback_refunds"]).to eq("30.0")
+        expect(dashboard_responder['chargeback_refunds']).to eq('30.0')
       end
 
       it 'responds with right month' do
         month = response.parsed_body['month']
         month.each do |day|
-          expect(day[1]['payment_amount']).to eq("5.0")
+          expect(day[1]['payment_amount']).to eq('5.0')
           expect(day[1]['transaction_count']).to eq(5)
         end
       end
@@ -84,7 +86,7 @@ RSpec.describe DashboardController, type: :controller do
     context 'when user not is authenticated' do
       let(:default_headers) { {} }
 
-      before do 
+      before do
         get :index
       end
 
