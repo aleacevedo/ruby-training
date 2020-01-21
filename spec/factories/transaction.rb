@@ -8,9 +8,9 @@ FactoryBot.define do
     amount { Faker::Number.decimal }
     currency { Faker::Number.between(from: 0, to: 1) }
     payment
-    installments_current { Faker::Number.number }
-    installments_number { Faker::Number.number }
-    installments_total { Faker::Number.number }
+    installments_current { Faker::Number.number(digits: 5) }
+    installments_number { Faker::Number.number(digits: 5) }
+    installments_total { Faker::Number.number(digits: 5) }
     card_number { Faker::Number.number(digits: 16).to_s }
     discount_amount { Faker::Number.decimal }
   end
