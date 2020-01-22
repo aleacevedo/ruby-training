@@ -13,7 +13,7 @@ class ClearingsController < ApplicationController
     establishments = Establishment.where(shop: Shop.where(account: account))
     Payment.select(:total_amount)
            .where(establishment: establishments)
-           .where('payment_date BETWEEN ? AND ?', from, to)
+           .where(payment_date: from..to)
            .group(:provider)
            .sum(:total_amount)
   end

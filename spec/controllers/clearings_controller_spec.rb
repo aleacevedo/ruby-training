@@ -66,7 +66,7 @@ RSpec.describe ClearingsController, type: :controller do
     context 'when user is authenticated' do
       include_context 'with authenticated user'
       before do
-        Shop.last.update(account: admin_user.account)
+        shop.update(account: admin_user.account)
         get :index
       end
       it 'returns http success' do
@@ -75,7 +75,7 @@ RSpec.describe ClearingsController, type: :controller do
       it 'JSON body response contains expected clearings attributes' do
         expect(response).to match_json_schema('clearing')
       end
-      context 'when filter is not set' do
+      context 'when filter is set' do
         before { get :index }
         it 'value are right' do
           parsed_body = response.parsed_body
