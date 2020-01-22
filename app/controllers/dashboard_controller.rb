@@ -4,40 +4,39 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    account = current_user.account
     render json: {
-      today_amount: calc_payment_amount_of(account, Date.today),
-      tomorrow_amount: calc_payment_amount_of(account, Date.tomorrow),
-      chargeback_refunds: calc_chargeback_and_refunds(account),
-      month: generate_month(account)
+      today_amount: calc_payment_amount_of(Date.today),
+      tomorrow_amount: calc_payment_amount_of(Date.tomorrow),
+      chargeback_refunds: calc_chargeback_and_refunds,
+      month: generate_month
     }, status: 200
   end
 
   private
 
-  def calc_payment_amount_of(_account, date)
+  def calc_payment_amount_of(date)
     Payment.where(establishment: establishments)
            .where(payment_date: date).sum(&:total_amount)
   end
 
-  def calc_chargeback_and_refunds(_account)
+  def calc_chargeback_and_refunds
     Movement.where(payment: Payment.where(establishment: establishments))
             .where(payment_date: Date.today)
             .where('type=? OR type=?', 'Chargeback', 'Refund')
             .sum(&:amount)
   end
 
-  def generate_month(account)
+  def generate_month
     month = {}
-    payments = generate_month_summary_payments(account)
-    transactions = generate_month_summary_transactions(account)
+    payments = generate_month_summary_payments
+    transactions = generate_month_summary_transactions
     payments.keys.union(transactions.keys).each do |key|
       month[key] = { payment_amount: payments[key], transaction_count: transactions[key] }
     end
     month
   end
 
-  def generate_month_summary_payments(_account)
+  def generate_month_summary_payments
     Payment.select(:payment_date)
            .where(establishment: establishments)
            .where('EXTRACT(MONTH FROM payment_date) = ?', Date.today.month)
@@ -45,7 +44,7 @@ class DashboardController < ApplicationController
            .sum(:total_amount)
   end
 
-  def generate_month_summary_transactions(_account)
+  def generate_month_summary_transactions
     Movement.select(:origin_date)
             .where(payment: Payment.where(establishment: establishments))
             .where(type: 'Transaction')
