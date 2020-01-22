@@ -1,0 +1,11 @@
+{
+  "id": "file:/clearing.json#",
+  "type": "object",
+  "required": ["visa", "mastercard", "amex", "cabal"],
+  "properties": {
+    "visa": { "type": "string" },
+    "mastercard": { "type": "string" },
+    "amex": { "type": "string" },
+    "cabal": { "type": "string" }
+  }
+}
