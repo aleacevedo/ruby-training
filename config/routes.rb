@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :accounts, only: %i[show index create update]
   resources :users, only: %i[show index create update]
   post :generate_token, path: '/users/generate_token', action: :generate_token, controller: 'users'
+  get 'dashboard', action: :index, controller: 'dashboard'
 end

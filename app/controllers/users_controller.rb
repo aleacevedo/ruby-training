@@ -18,7 +18,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(create_user_params)
-    render json: @user, status: :created
+    return render json: @user, status: :created if @user.valid?
+
+    render json: @user.errors, status: :bad_request
   end
 
   def update

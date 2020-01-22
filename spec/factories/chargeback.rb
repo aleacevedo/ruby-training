@@ -8,8 +8,8 @@ FactoryBot.define do
     amount { Faker::Number.decimal }
     currency { Faker::Number.between(from: 0, to: 1) }
     payment
-    card_number { Faker::Number.number(digits: 16).to_str }
-    coupon_number { Faker::Number.number(digits: 6).to_str }
-    description_code { Faker::Number.number(digits: 2).to_str }
+    card_number { Faker::Number.number(digits: 16).to_s }
+    coupon_number { Faker::Number.number(digits: 6).to_s }
+    description_code { Faker::Number.number(digits: 2).to_s }
   end
 end

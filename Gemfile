@@ -39,6 +39,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', '~> 0.79.0', require: false
   gem 'thor', '~> 1.0'
+  gem 'timecop'
 end
 
 group :development do
