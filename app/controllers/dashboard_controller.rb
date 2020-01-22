@@ -15,14 +15,12 @@ class DashboardController < ApplicationController
 
   private
 
-  def calc_payment_amount_of(account, date)
-    establishments = Establishment.where(shop: Shop.where(account: account))
+  def calc_payment_amount_of(_account, date)
     Payment.where(establishment: establishments)
            .where(payment_date: date).sum(&:total_amount)
   end
 
-  def calc_chargeback_and_refunds(account)
-    establishments = Establishment.where(shop: Shop.where(account: account))
+  def calc_chargeback_and_refunds(_account)
     Movement.where(payment: Payment.where(establishment: establishments))
             .where(payment_date: Date.today)
             .where('type=? OR type=?', 'Chargeback', 'Refund')
@@ -39,8 +37,7 @@ class DashboardController < ApplicationController
     month
   end
 
-  def generate_month_summary_payments(account)
-    establishments = Establishment.where(shop: Shop.where(account: account))
+  def generate_month_summary_payments(_account)
     Payment.select(:payment_date)
            .where(establishment: establishments)
            .where('EXTRACT(MONTH FROM payment_date) = ?', Date.today.month)
@@ -48,13 +45,16 @@ class DashboardController < ApplicationController
            .sum(:total_amount)
   end
 
-  def generate_month_summary_transactions(account)
-    establishments = Establishment.where(shop: Shop.where(account: account))
+  def generate_month_summary_transactions(_account)
     Movement.select(:origin_date)
             .where(payment: Payment.where(establishment: establishments))
             .where(type: 'Transaction')
             .where('EXTRACT(MONTH FROM origin_date) = ?', Date.today.month)
             .group(:origin_date)
             .count
+  end
+
+  def establishments
+    @establishments ||= Establishment.where(shop: Shop.where(account: current_user.account))
   end
 end
