@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClearingsController < ApplicationController
   before_action :authenticate_user!
   def index
